@@ -9,7 +9,7 @@ BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # source the bash completion scripts
 # create the bash completion directory if it doesn't exist
-BASH_COMP_DIR=/home/jgaunt/.bash.completion
+BASH_COMP_DIR=/home/jgaunt/.bash_completion
 if [[ ! -d ${BASH_COMP_DIR} ]]; then
   mkdir ${BASH_COMP_DIR}
   #TODO: error check here
