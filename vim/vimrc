@@ -1,0 +1,63 @@
+
+set nocompatible
+set showmode
+set scrolloff=3
+set laststatus=2
+
+" Launch {{{
+call pathogen#infect()
+" }}}
+
+" Colors {{{
+syntax enable
+"colorscheme badwolf
+colorscheme solarized
+set background=dark
+set t_Co=16
+let g:solarized_termcolors=16
+" }}}
+
+" Misc {{{
+set ttyfast
+set backspace=indent,eol,start
+" }}}
+
+" Spaces & Tabs {{{
+set tabstop=2
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+set modelines=1
+filetype indent on
+filetype plugin on
+set autoindent
+" }}}
+
+" UI Config {{{
+set number        " line numbers
+set showcmd       " show command in bottom bar
+"set cursorline    " highlight current line
+set wildmenu
+set lazyredraw
+set showmatch
+" }}}
+" Search {{{
+set incsearch
+set hlsearch
+nnoremap <leader><space> :nohlsearch<CR>
+" }}}
+" Folding {{{
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+nnoremap <space> za
+set foldmethod=indent
+" }}}
+" Backups {{{
+set backup
+set backupdir=~/.vim-tmp,/tmp
+set backupskip=/tmp/*
+set directory=~/.vim-tmp,/tmp
+set writebackup
+" }}}
+"vim:foldmethod=marker:foldlevel=0
