@@ -41,11 +41,13 @@ set wildmenu
 set lazyredraw
 set showmatch
 " }}}
+
 " Search {{{
 set incsearch
 set hlsearch
 nnoremap <leader><space> :nohlsearch<CR>
 " }}}
+
 " Folding {{{
 set foldenable
 set foldlevelstart=10
@@ -53,6 +55,7 @@ set foldnestmax=10
 nnoremap <space> za
 set foldmethod=indent
 " }}}
+
 " Backups {{{
 set backup
 set backupdir=~/.vim-tmp,/tmp
@@ -60,4 +63,6 @@ set backupskip=/tmp/*
 set directory=~/.vim-tmp,/tmp
 set writebackup
 " }}}
+
+" turns on folding by marker and auto-collapses to level 0
 "vim:foldmethod=marker:foldlevel=0
