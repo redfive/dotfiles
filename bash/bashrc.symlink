@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+## shortcut to this dotfiles path is $DOTFILES
+export DOTFILES=$HOME/.dotfiles
+
+# TODO: wire this up to the bash completion:
+# https://iridakos.com/programming/2018/03/01/bash-programmable-completion-tutorial
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/local
+
+# preferring this over the sourcing of path files, for now
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+export EDITOR=`which vim`
+export NOMAD_ADDR=http://nomad.service.consul:4646/
+export VAULT_ADDR=https://vault.service.consul:8200/
+
+info () {
+  printf "\r  [ \033[00;34mbashrc\033[0m ] $1\n"
+}
+
+[[ -f ~/.dircolors ]] && eval "$(dircolors ~/.dircolors)"
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+# all of our bash files
+typeset -a config_files
+config_files=$(find $DOTFILES/* -type f -name "*.bash")
+
+# load the path files
+for file in ${config_files[@]}
+do
+  [[ "${file}" == */path.bash ]] && source "$file"
+done
+
+# load everything but the path and completion files
+for file in ${config_files[@]}
+do
+  # these match and remove the longest match
+  [[ ${file#*/path.bash} && ${file#*/completion.bash} ]] && source "$file"
+done
+
+# load every completion after autocomplete loads
+for file in ${config_files[@]}
+do
+  [[ "${file}" == */completion.bash ]] && source "$file"
+done
+
+unset config_files
+
+# python virtualenv stuff -- maybe not needed?
+[[ -s "/usr/local/bin/virtualenvwrapper.sh" ]] && source /usr/local/bin/virtualenvwrapper.sh
+

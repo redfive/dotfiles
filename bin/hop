@@ -1,0 +1,37 @@
+#!/bin/bash
+# hop
+# a wrapper for ssh that automatically provisions dotfiles
+
+DOTFILES=(~/.vimrc ~/.bashrc)
+HOP_DB=~/.hop
+
+# find out which argument is the target host
+for arg in "${@}"; do
+    if [ "$arg" != "service" ]; then
+        host "$arg" 2>/dev/null | grep 'has address' >/dev/null && target="$arg"
+    fi  
+done
+
+if [ "$target" = "" ]; then
+    echo "Target host not found"
+    echo
+    echo "Usage: $0 <target-host>"
+    exit 1
+fi
+
+mkdir $HOP_DB >/dev/null 2>&1 # first run
+
+push=
+# been there before?
+if ls "$HOP_DB/$target" >/dev/null; then
+    # is last hop older than any dotfiles?   
+    for dotfile in "${DOTFILES[@]}"; do
+        find "$HOP_DB/" -name "$target" -newer "$dotfile" | grep "$target" >/dev/null || push=true
+    done
+else
+    # no hop recorded
+    push=true
+fi
+
+[ "$push" ] && scp "${DOTFILES[@]}" "$target": && touch "$HOP_DB/$target"
+/usr/bin/ssh "$@" 

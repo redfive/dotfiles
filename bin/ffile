@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# no args, find all files
+if [ $# = 0 ]; then
+    find . -type f | grep -v '.git'
+# one arg, search for the file by name
+elif [ $# = 1 ]; then
+    find . -type f -name "$1"
+# 2 args search for the file by name then grep the output
+elif [ $# = 2 ]; then
+    find . -type f -name "$1" | grep $2
+fi

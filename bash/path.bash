@@ -1,0 +1,2 @@
+export DOTFILES_BIN=$DOTFILES/bin
+export PATH=$DOTFILES_BIN:$PATH
