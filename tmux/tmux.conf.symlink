@@ -1,0 +1,37 @@
+set-environment -g 'SSH_AUTH_SOCK' ~/.ssh/ssh_auth_sock
+
+# easy tmux conf file reloading
+bind r source-file ~/.tmux.conf
+
+# remap prefix from 'C-b' to 'C-SPACE'
+unbind C-b
+unbind C-a
+set-option -g prefix C-SPACE
+bind-key C-SPACE send-prefix
+
+# split panes using | and -
+bind | split-window -h
+bind - split-window -v
+unbind '"'
+unbind %
+
+# switch panes using Alt-arrow (no prefix)
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Shift arrow to switch windows (no prefix)
+bind -n S-Left  previous-window
+bind -n S-Right next-window
+
+# Pane re-sizing <ctrl>-<shift> (no prefix)
+bind-key -n C-S-Up resize-pane -U 15
+bind-key -n C-S-Down resize-pane -D 15
+bind-key -n C-S-Left resize-pane -L 15
+bind-key -n C-S-Right resize-pane -R 15
+
+# Vi copypaste mode
+set-window-option -g mode-keys vi
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
