@@ -2,36 +2,51 @@
 # hop
 # a wrapper for ssh that automatically provisions dotfiles
 
-DOTFILES=(~/.vimrc ~/.bashrc)
 HOP_DB=~/.hop
 
-# find out which argument is the target host
-for arg in "${@}"; do
-    if [ "$arg" != "service" ]; then
-        host "$arg" 2>/dev/null | grep 'has address' >/dev/null && target="$arg"
-    fi  
-done
-
-if [ "$target" = "" ]; then
-    echo "Target host not found"
-    echo
+usage() {
+    if [[ "$1" ]]; then
+        echo "Error: $1"
+        echo
+    fi
     echo "Usage: $0 <target-host>"
     exit 1
+}
+
+# for now, only accept one host
+if [[ $# != 1 ]]; then
+  usage "Must supply a target host."
+fi
+
+# make sure the host exists and can be found
+host "$1" 2>/dev/null | grep 'has address' >/dev/null && target="$1"
+
+if [[ "$target" = "" ]]; then
+    usage "Target host \"$1\" not found"
 fi
 
 mkdir $HOP_DB >/dev/null 2>&1 # first run
 
 push=
+refresh=
 # been there before?
 if ls "$HOP_DB/$target" >/dev/null; then
-    # is last hop older than any dotfiles?   
-    for dotfile in "${DOTFILES[@]}"; do
-        find "$HOP_DB/" -name "$target" -newer "$dotfile" | grep "$target" >/dev/null || push=true
-    done
+    target_date=$(date -r "$HOP_DB/$target"  +%s)
+    pushd ~/.dotfiles;
+    git_date=$(git log -1 --date=format:"%s" --format="%ad")
+    popd
+    # is git newer than the last visit to target?
+    if [[ git_date -gt target_date ]]; then
+        push=true
+    fi
 else
     # no hop recorded
     push=true
 fi
 
-[ "$push" ] && scp "${DOTFILES[@]}" "$target": && touch "$HOP_DB/$target"
-/usr/bin/ssh "$@" 
+if [[ "$push" ]]; then
+    rsync -rt "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles && touch "$HOP_DB/$target"
+    /usr/bin/ssh "$target" -C .dotfiles/scripts/bootstrap
+fi
+
+/usr/bin/ssh "$target" 
