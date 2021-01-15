@@ -32,9 +32,9 @@ refresh=
 # been there before?
 if ls "$HOP_DB/$target" >/dev/null; then
     target_date=$(date -r "$HOP_DB/$target"  +%s)
-    pushd ~/.dotfiles;
+    pushd ~/.dotfiles > /dev/null
     git_date=$(git log -1 --date=format:"%s" --format="%ad")
-    popd
+    popd > /dev/null
     # is git newer than the last visit to target?
     if [[ git_date -gt target_date ]]; then
         push=true
@@ -45,7 +45,7 @@ else
 fi
 
 if [[ "$push" ]]; then
-    rsync -qrt "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles && touch "$HOP_DB/$target"
+    rsync -vrt --stats "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles | grep "^Number" && touch "$HOP_DB/$target"
     /usr/bin/ssh "$target" -C .dotfiles/scripts/bootstrap
 fi
 
