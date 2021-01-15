@@ -9,3 +9,6 @@ alias grep='grep --color=auto'
 
 alias cdl='cd $HOME/local'
 alias cdj='cd $HOME/local/JENKINS'
+
+# Panora commands
+alias hrs='info-sb hostsroles $(hostname)'
