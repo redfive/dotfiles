@@ -45,7 +45,7 @@ else
 fi
 
 if [[ "$push" ]]; then
-    rsync -rt "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles && touch "$HOP_DB/$target"
+    rsync -qrt "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles && touch "$HOP_DB/$target"
     /usr/bin/ssh "$target" -C .dotfiles/scripts/bootstrap
 fi
 
