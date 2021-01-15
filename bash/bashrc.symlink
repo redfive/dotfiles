@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+info () {
+  printf "\r  [ \033[00;34mbashrc\033[0m ] $1\n"
+}
+
 ## shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
@@ -14,9 +18,20 @@ export EDITOR=`which vim`
 export NOMAD_ADDR=http://nomad.service.consul:4646/
 export VAULT_ADDR=https://vault.service.consul:8200/
 
-info () {
-  printf "\r  [ \033[00;34mbashrc\033[0m ] $1\n"
-}
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
 [[ -f ~/.dircolors ]] && eval "$(dircolors ~/.dircolors)"
 
