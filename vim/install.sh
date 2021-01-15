@@ -6,7 +6,12 @@ info () {
   printf "\r  [ \033[00;34mvim\033[0m ] $1\n"
 }
 
-dst=$HOME/.vim/colors
+VIM_HOME=$HOME/.vim
+
+# make sure it exists
+mkdir -p $VIM_HOME
+
+dst=$VIM_HOME/colors
 src=$DOTFILES/vim/colors
 skip=
 
