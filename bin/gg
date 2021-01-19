@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-echo $@
-echo 'the'
-echo $*
-
 function _usage {
   echo "usage: $0 <1st search term> <2nd search term>...<nth search term> "
 }
@@ -13,13 +9,10 @@ if [ $# = 0 ]; then
   _usage
 fi
 
-#grep --line-number --recursive --color=auto --exclude=*.{pyc,png,jpg} $1 *
-# GREP="grep --color=auto"
 # loop over inputs
 command="grep --line-number --recursive --color=auto --exclude=*.{pyc,png,jpg} "
 for arg in $*; do
     command="$command -e $arg "
 done
 
-echo $command
 $command
