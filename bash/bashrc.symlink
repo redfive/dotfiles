@@ -18,6 +18,13 @@ export EDITOR=`which vim`
 export NOMAD_ADDR=http://nomad.service.consul:4646/
 export VAULT_ADDR=https://vault.service.consul:8200/
 
+# Set up the ssh auth sock in a way that works with tmux
+# If .ssh/ssh_auth_sock is NOT a socket, and SSH_AUTH_SOCK *is* a socket
+#   create a symlink, overwriting the existing link if it exists
+if [ ! -S ~/.ssh/ssh_auth_sock ] && [ -S "$SSH_AUTH_SOCK" ]; then
+    ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
