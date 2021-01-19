@@ -37,9 +37,9 @@ if ls "$HOP_DB/$target" >/dev/null; then
     # is git newer than the last visit to target?
     if [[ git_date && git_date -gt target_date ]]; then
         push=true
-    elif [[ ! git_date ]]; then
+    elif [[ -n git_date ]]; then
         # not in a git repo, see if dotfiles has newer files
-        find . -newer ~/.hop/jenkins-build-agent-05  | grep '.*' > /dev/null && push=true
+        find . -newer "$HOP_DB/$target" | grep '.*' > /dev/null && push=true
     fi
     popd > /dev/null
 else
