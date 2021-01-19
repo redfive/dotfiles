@@ -34,11 +34,14 @@ if ls "$HOP_DB/$target" >/dev/null; then
     target_date=$(date -r "$HOP_DB/$target"  +%s)
     pushd ~/.dotfiles > /dev/null
     git_date=$(git log -1 --date=format:"%s" --format="%ad")
-    popd > /dev/null
     # is git newer than the last visit to target?
-    if [[ git_date -gt target_date ]]; then
+    if [[ git_date && git_date -gt target_date ]]; then
         push=true
+    elif [[ ! git_date ]]; then
+        # not in a git repo, see if dotfiles has newer files
+        find . -newer ~/.hop/jenkins-build-agent-05  | grep '.*' > /dev/null && push=true
     fi
+    popd > /dev/null
 else
     # no hop recorded
     push=true
