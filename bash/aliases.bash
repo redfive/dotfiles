@@ -12,3 +12,4 @@ alias cdj='cd $HOME/local/JENKINS'
 
 # Panora commands
 alias hrs='info-sb hostsroles $(hostname)'
+alias vl='vault login -method=ldap username=jgaunt'
