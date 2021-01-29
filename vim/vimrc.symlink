@@ -42,8 +42,9 @@ set showmatch
 " }}}
 
 " Search {{{
-set incsearch
-set hlsearch
+set ignorecase         " case insensitive search
+set incsearch          " show results incrementally
+set hlsearch           " highlight search results
 nnoremap <leader><space> :nohlsearch<CR>
 " }}}
 
