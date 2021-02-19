@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# if no arg passed in, get hostsroles on localhost
+if [ $# = 0 ]; then
+  info-sb hostsroles $(hostname)
+fi
+
+if [ $# = 1 ]; then
+  info-sb hostsroles $1
+fi
+
