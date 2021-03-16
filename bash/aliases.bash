@@ -1,6 +1,6 @@
 alias env='env | sort'
 
-alias ls='ls -FG --color=auto'
+alias ls='ls -F --color=auto'
 alias la='ls -a'
 alias lal='ls -al'
 alias ll='ls -l'
