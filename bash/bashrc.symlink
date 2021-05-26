@@ -83,12 +83,13 @@ unset config_files
 
 # python pyenv setup ; path settings are updated separately
 if [[ -e ~/.pyenv ]]; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  source "$(pyenv root)/completions/pyenv.bash"
+#  eval "$(pyenv init -)"
+#  eval "$(pyenv virtualenv-init -)"
 fi
 
 # python virtualenv stuff -- maybe not needed?
-[[ -s "/usr/local/bin/virtualenvwrapper.sh" ]] && source /usr/local/bin/virtualenvwrapper.sh
+[[ -s "${HOME}/.local/bin/virtualenvwrapper.sh" ]] && source ${HOME}/.local/bin/virtualenvwrapper.sh
 
 
 export NVM_DIR="$HOME/.nvm"
