@@ -16,7 +16,7 @@ export PROJECTS=~/local
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 export EDITOR=`which vim`
 #export NOMAD_ADDR=http://nomad.service.consul:4646/
-export VAULT_ADDR=https://vault.service.consul:8200/
+#export VAULT_ADDR=https://vault.service.consul:8200/
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 # Set up the ssh auth sock in a way that works with tmux
@@ -84,7 +84,7 @@ unset config_files
 # python pyenv setup ; path settings are updated separately
 if [[ -e ~/.pyenv ]]; then
   source "$(pyenv root)/completions/pyenv.bash"
-#  eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 #  eval "$(pyenv virtualenv-init -)"
 fi
 
