@@ -11,7 +11,7 @@
         diff = auto
         status = auto
         branch = auto
-        ui = true
+        ui = auto
 [core]
         excludesfile = ~/.gitignore
         editor = vim
@@ -31,3 +31,5 @@
         smudge = git-lfs smudge -- %f
         process = git-lfs filter-process
         required = true
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
