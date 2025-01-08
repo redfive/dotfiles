@@ -88,6 +88,15 @@ if [[ -e ~/.pyenv ]]; then
 #  eval "$(pyenv virtualenv-init -)"
 fi
 
+## Install and load SDE
+if [[ $HOME == "/home/redfive" ]]; then
+  if [[ -d $HOME/.sde/.git ]]; then
+    git -C $HOME/.sde pull -q;
+  else
+    git -C $HOME clone https://ghe.siriusxm.com/platform-eng/.sde ;
+  fi && source $HOME/.sde/profile/profile.sh
+fi
+
 # python virtualenv stuff -- maybe not needed?
 [[ -s "${HOME}/.local/bin/virtualenvwrapper.sh" ]] && source ${HOME}/.local/bin/virtualenvwrapper.sh
 
