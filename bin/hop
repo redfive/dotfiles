@@ -48,7 +48,7 @@ else
 fi
 
 if [[ "$push" ]]; then
-    rsync -vrt --stats "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles | grep "^Number" && touch "$HOP_DB/$target"
+    rsync --del -vrt --stats "--exclude=.git*" "$HOME/.dotfiles/" "$target":/home/jgaunt/.dotfiles | grep "^Number" && touch "$HOP_DB/$target"
     /usr/bin/ssh "$target" -C .dotfiles/scripts/bootstrap
 fi
 
