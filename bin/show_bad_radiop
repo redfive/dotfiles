@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+hosts=$(smack-ng showcheck Radio_App PROD-check_colo-radio | grep -o "\(app.*-radio\)")
+
+echo $hosts
+

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+h=$(hostname)
+
+source allutils
+setvm ${h}-radio
+sudovm vm restart
