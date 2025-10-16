@@ -1,0 +1,39 @@
+#!/bin/bash
+
+local_dir=${HOME}/loco
+local_tools=${local_dir}/tools
+
+# use case #1 new host, nothing is there
+# use case #2 existing host, local dir but no tools
+# use case #3 existing host, out of date tools
+# use case #4 existing host, tools localy modified or on a branch
+
+if [ ! -e ${local_dir} ]; then
+  echo "no local dir - making"
+  mkdir ${local_dir}
+fi
+
+
+if [ -e ${local_tools} ]; then
+  if [ -d ${local_tools} ]; then
+    # use case 3,4
+    echo "tools dir exists"
+    pushd ${local_tools}
+    if [ -e '.git' ]; then
+      # this could be case 3 OR 4, might in the future handle being on a branch
+      echo "have a git directory updating"
+      git pull
+    else
+      echo "tools is not a git checkout, better manually see what is up."
+    fi
+  else
+    echo "tools is not a dir, better manually see what is up."
+  fi
+else
+  # use case 1,2
+  echo "nothing at tools dir - checking it out"
+  pushd ${local_dir}
+  git clone ssh://bitbucket.savagebeast.com:2222/~jgaunt/tools.git
+fi
+
+
