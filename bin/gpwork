@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo gpclient connect --default-browser portal.savagebeast.com
+#sudo gpclient connect --default-browser us-west-01.savagebeast.com
