@@ -36,6 +36,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+HISTTIMEFORMAT="%F %T "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -89,13 +90,13 @@ if [[ -e ~/.pyenv ]]; then
 fi
 
 ## Install and load SDE
-if [[ $HOME == "/home/redfive" ]]; then
-  if [[ -d $HOME/.sde/.git ]]; then
-    git -C $HOME/.sde pull -q;
-  else
-    git -C $HOME clone https://ghe.siriusxm.com/platform-eng/.sde ;
-  fi && source $HOME/.sde/profile/profile.sh
-fi
+#if [[ $HOME == "/home/redfive" ]]; then
+#  if [[ -d $HOME/.sde/.git ]]; then
+#    git -C $HOME/.sde pull -q;
+#  else
+#    git -C $HOME clone https://ghe.siriusxm.com/platform-eng/.sde ;
+#  fi && source $HOME/.sde/profile/profile.sh
+#fi
 
 # python virtualenv stuff -- maybe not needed?
 [[ -s "${HOME}/.local/bin/virtualenvwrapper.sh" ]] && source ${HOME}/.local/bin/virtualenvwrapper.sh
@@ -104,3 +105,5 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source '/home/redfive/.bash_completions/falconsb.py.sh'
