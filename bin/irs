@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# if no arg passed in, get hostsroles on localhost
+if [[ "$#" -eq 0 ]]; then
+  info-sb roles | sort
+fi
+
+if [[ "$#" -ge 1 ]]; then
+  info-sb roles $@ | sort
+fi
+
