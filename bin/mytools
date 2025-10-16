@@ -1,6 +1,6 @@
 #!/bin/bash
 
-local_dir=${HOME}/loco
+local_dir=${HOME}/local
 local_tools=${local_dir}/tools
 
 # use case #1 new host, nothing is there
