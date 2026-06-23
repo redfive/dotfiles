@@ -1,0 +1,4 @@
+#~/usr/bin/env bash
+
+host=pduuocpwkr${1}
+ssh -i ~/.ssh/core_id_rsa core@$host
